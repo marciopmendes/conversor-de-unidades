@@ -1,0 +1,156 @@
+#:kivy 2.1.0
+#:import Factory kivy.factory.Factory
+
+#:set color_button (2.62, 1.68, .78, 1)
+#:set color_button_pressed (2.62, 1.68, .78, 1)
+#:set color_font   (1, 1, 1, 1)
+
+<MyLabel@Label>:
+    font_size: '12sp'
+    size: '14dp'
+
+<MySpinnerOption@SpinnerOption>:
+    background_color: color_button
+    background_down: 'atlas://data/images/defaulttheme/button'
+    color: color_font
+
+<Conversor>
+    canvas.before:
+        Color:
+            rgba: 1, 0, .45, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    cols: 1
+    GridLayout:
+        size: root.width, root.height
+        cols: 1
+        rows: 4
+        padding: [10]
+
+        BoxLayout:
+            size: root.width, root.height
+            orientation: 'vertical'
+            padding: [15]
+
+            MyLabel:
+                id: author_label
+                text: "Desenvolvido por Marcio Pinheiro Mendes"
+
+            MyLabel:
+                id: contact_label
+                text: "Caso encontre algum erro ou tenha alguma dúvida/sugestão, entre em contato:"
+
+            MyLabel:
+                id: email_label
+                text: "marcio.pmendes@hotmail.com"
+
+            MyLabel:
+                id: info_label
+                text: "IMPORTANTE: siga as unidades indicadas entre parênteses"
+                bold: True
+
+            MyLabel:
+                id: densidade_info_label
+                text: "Caso utilize densidade, lembre-se de que g/mL = g/cm3 = kg/L"
+                bold: True
+
+        GridLayout:
+            size: root.width, root.height
+            cols: 2
+            rows: 5
+            padding: [20]
+
+            MyLabel:
+                id: input_value_label
+                text: "Coloque aqui o valor que deseja converter: "
+
+            TextInput:
+                id: input_value
+                multiline: False
+                background_color: .95, .65, .05, .9
+                foreground_color: 1, 1, 1, 1
+                cursor_color: 1, 1, 1, 1
+                input_filter: "float"
+                halign: 'center'
+                font_size: '12sp'
+                size: '14dp'
+
+            MyLabel:
+                id: input_unit_label
+                text: "Escolha a unidade de entrada: "
+
+            Spinner:
+                id: input_dropdown
+                text: "Clique aqui para escolher a unidade"
+                background_color: 2.62, 1.68, .78, 1
+                background_down: 'atlas://data/images/defaulttheme/spinner'
+                values: ['mg/L', 'µg/L', 'ng/L', 'g/L', 'mol/L', 'µg/mL', 'mg/Kg']
+                option_cls: Factory.get("MySpinnerOption")
+                on_text: root.input_spinner_clicked(input_dropdown.text)
+
+            MyLabel:
+                id: output_unit_label
+                text: "Escolha a unidade de saida: "
+
+            Spinner:
+                id: output_dropdown
+                text: "Clique aqui para escolher a unidade"
+                background_color: 2.62, 1.68, .78, 1
+                background_down: 'atlas://data/images/defaulttheme/spinner'
+                values: []
+                option_cls: Factory.get("MySpinnerOption")
+                on_text: root.output_spinner_clicked(output_dropdown.text)
+
+            MyLabel:
+                id: input_density_label
+                text: "Densidade (g/mL): "
+
+            TextInput:
+                id: input_density
+                multiline: False
+                disabled: True
+                text: "1"
+                background_color: .95, .65, .05, .9
+                foreground_color: 1, 1, 1, 1
+                cursor_color: 1, 1, 1, 1
+                input_filter: "float"
+                font_size: '12sp'
+                size: '14dp'
+
+            MyLabel:
+                id: input_molar_mass_label
+                text: "Massa Molar (g/mol): "
+
+            TextInput:
+                id: input_molar_mass
+                multiline: False
+                disabled: True
+                text: "1"
+                background_color: .95, .65, .05, .9
+                foreground_color: 1, 1, 1, 1
+                cursor_color: 1, 1, 1, 1
+                input_filter: "float"
+                font_size: '12sp'
+                size: '14dp'
+
+        GridLayout:
+            rows: 1
+            padding: [20]
+            
+            MDFillRoundFlatButton:
+                id: converter_button
+                md_bg_color: .93, .55, .12, .75
+                text: "CONVERTER"
+                font_size: '12sp'
+                size_hint: .5, .5
+                on_release: root.on_click_converter(input_value.text, input_density.text, input_molar_mass.text)
+                
+        GridLayout:
+            rows: 1
+            padding: [20]
+            
+            MyLabel:
+                id: resultado_label
+                text: ""
+                size_hint: (.1, .1)
