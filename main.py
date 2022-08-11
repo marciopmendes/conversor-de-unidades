@@ -1,6 +1,9 @@
 from kivymd.app import MDApp
 from kivy.uix.gridlayout import GridLayout
 import conversoes
+import kivy
+
+kivy.require('2.1.0')
 
 
 class Conversor(GridLayout):

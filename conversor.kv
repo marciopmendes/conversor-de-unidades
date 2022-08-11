@@ -1,14 +1,19 @@
 #:kivy 2.1.0
 #:import Factory kivy.factory.Factory
 
-#:set color_button (2.62, 1.68, .78, 1)  # brown
-#:set color_button_pressed (2.62, 1.68, .78, 1)  # darker brown
-#:set color_font   (1, 1, 1, 1)  # white
+#:set color_button (2.62, 1.68, .78, 1)
+#:set color_button_pressed (2.62, 1.68, .78, 1)
+#:set color_font   (1, 1, 1, 1)
+
+<MyLabel@Label>:
+    font_size: '14dp'
+
 
 <MySpinnerOption@SpinnerOption>:
     background_color: color_button
     background_down: 'atlas://data/images/defaulttheme/button'
     color: color_font
+    height: '30dp'
 
 <Conversor>
     canvas.before:
@@ -24,50 +29,41 @@
         rows: 4
         padding: [10]
 
-        GridLayout:
-            size: root.width, root.height
-            cols: 1
-            rows: 5
-            padding: [15]
-            size_hint: (.2, .2)
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10]
 
-            Label:
+            MyLabel:
                 id: author_label
                 text: "Desenvolvido por Marcio Pinheiro Mendes"
-                font_size: '18sp'
 
-            Label:
+            MyLabel:
                 id: contact_label
                 text: "Caso encontre algum erro ou tenha alguma dúvida/sugestão, entre em contato:"
-                font_size: '18sp'
 
-            Label:
+            MyLabel:
                 id: email_label
                 text: "marcio.pmendes@hotmail.com"
-                font_size: '18sp'
 
-            Label:
+            MyLabel:
                 id: info_label
                 text: "IMPORTANTE: siga as unidades indicadas entre parênteses"
-                font_size: '18sp'
                 bold: True
 
-            Label:
+            MyLabel:
                 id: densidade_info_label
                 text: "Caso utilize densidade, lembre-se de que g/mL = g/cm3 = kg/L"
                 bold: True
-                font_size: '18sp'
 
         GridLayout:
             size: root.width, root.height
             cols: 2
             rows: 5
-            padding: [20]
-            size_hint: (.3, .3)
-            Label:
+            padding: [10]
+
+            MyLabel:
                 id: input_value_label
                 text: "Coloque aqui o valor que deseja converter: "
-                font_size: '18sp'
 
             TextInput:
                 id: input_value
@@ -76,14 +72,11 @@
                 foreground_color: 1, 1, 1, 1
                 cursor_color: 1, 1, 1, 1
                 input_filter: "float"
-                hint_text: 'Utilize ponto para casas decimais'
-                hint_text_color: 1, 1, 1, 1
-                halign: 'center'
+                font_size: '12sp'
 
-            Label:
+            MyLabel:
                 id: input_unit_label
                 text: "Escolha a unidade de entrada: "
-                font_size: '18sp'
 
             Spinner:
                 id: input_dropdown
@@ -94,10 +87,9 @@
                 option_cls: Factory.get("MySpinnerOption")
                 on_text: root.input_spinner_clicked(input_dropdown.text)
 
-            Label:
+            MyLabel:
                 id: output_unit_label
                 text: "Escolha a unidade de saida: "
-                font_size: '18sp'
 
             Spinner:
                 id: output_dropdown
@@ -108,10 +100,9 @@
                 option_cls: Factory.get("MySpinnerOption")
                 on_text: root.output_spinner_clicked(output_dropdown.text)
 
-            Label:
+            MyLabel:
                 id: input_density_label
                 text: "Densidade (g/mL): "
-                font_size: '18sp'
 
             TextInput:
                 id: input_density
@@ -122,11 +113,11 @@
                 foreground_color: 1, 1, 1, 1
                 cursor_color: 1, 1, 1, 1
                 input_filter: "float"
+                font_size: '12sp'
 
-            Label:
+            MyLabel:
                 id: input_molar_mass_label
                 text: "Massa Molar (g/mol): "
-                font_size: '18sp'
 
             TextInput:
                 id: input_molar_mass
@@ -137,17 +128,26 @@
                 foreground_color: 1, 1, 1, 1
                 cursor_color: 1, 1, 1, 1
                 input_filter: "float"
+                font_size: '12sp'
 
-        MDFillRoundFlatButton:
-            id: converter_button
-            md_bg_color: .93, .55, .12, .75
-            font_size: "20dp"
-            text: "CONVERTER"
-            size_hint: (.05, .05)
-            on_release: root.on_click_converter(input_value.text, input_density.text, input_molar_mass.text)
+        GridLayout:
+            rows: 1
+            padding: [20]
+            size_hint: 0.3, 0.3
 
-        Label:
-            id: resultado_label
-            text: ""
-            size_hint: (.1, .1)
-            font_size: '26sp'
+            MDFillRoundFlatButton:
+                id: converter_button
+                md_bg_color: .93, .55, .12, .75
+                text: "CONVERTER"
+                font_size: '12sp'
+                size_hint: 0.5, 0.5
+                on_release: root.on_click_converter(input_value.text, input_density.text, input_molar_mass.text)
+
+        GridLayout:
+            rows: 1
+            padding: [20]
+            size_hint: .2, .2
+
+            MyLabel:
+                id: resultado_label
+                text: ""
