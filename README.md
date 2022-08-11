@@ -5,6 +5,7 @@ O aplicativo foi desenvolvido em linguagem Python 3.10, utilizando a biblioteca 
 
 Premissas do uso do app:
 *   Sistema operacional Android;
+*   Orientação do dispositivo em modo paisagem (horizontal) apenas;
 *   Entrada do valor a ser convertido: somente caracteres numéricos, podendo ser inteiros ou decimais. No caso de decimais, utilizar o . (ponto) como separador;
 *   Selecionar a unidade de entrada clicando no botão para exibir a lista de unidades disponíveis;
 *   Selecionar a unidade de saída, repetindo o mesmo procedimento da unidade de entrada.
